@@ -57,6 +57,21 @@ void del(char *name){
     table[key] = removeData(table[key],name); 
 }
 
+// Search
+void search(char *name){
+    int key = hashKey(name);
+    data *curr = table[key];
+    int index = 0;
+    
+    while(curr != NULL && strcmp(curr->name,name) != 0){
+        index++;
+        curr = curr->next;
+    }
+
+    printf("Lokasi Value berada di table[%d] pada index %d\n",key,index);
+
+}
+
 // display
 void display(){
     for(int i = 0; i < 5; i++){
@@ -79,11 +94,27 @@ void display(){
     }
 }
 
-
-int intfunc(char *str){
-	return 10;
+// Delete all data 
+data *delAllData(data *curr){
+    if(curr == NULL){
+        return curr;
+    }
+    else{
+        curr->next = delAllData(curr->next);
+        curr = NULL;
+        free(curr);
+        return curr;
+    }
 }
 
+void delAll(){
+    for(int i = 0; i < 5; i++){
+        table[i] = delAllData(table[i]);
+        printf("done\n");
+    }
+}
+
+// Main 
 int main(){
     insert("Kelvin");
     insert("Kevin");
@@ -94,8 +125,10 @@ int main(){
     insert("Dedi");
     insert("Danjis");
     insert("Dadu");
-    del("Kevin");
+    delAll();
     display();
+
+    search("Kelvin");
 
     
     return 0;
