@@ -95,7 +95,6 @@ int main(){
     insert("Danjis");
     insert("Dadu");
     del("Kevin");
-
     display();
 
     
